@@ -1,2 +1,2 @@
-# algorymy_sortowania
+# Algorymy_sortowania
 Algorytmy sortowania napisane w czasie zajęć z algorytmów i struktur danych
