@@ -209,7 +209,7 @@ void NodeList::switchNextElement(int index)
 
 
 }
-void NodeList::switchElements(int index1, int index2)
+void NodeList::swap(int index1, int index2)
 {
 	if (index1 >= 0 && index1 < length && index2 >= 0 && index2 < length && index1 != index2)
 	{
@@ -263,6 +263,69 @@ void NodeList::switchElements(int index1, int index2)
 			tail = tmp1;
 		if (!tmp1->prev)
 			head = tmp1;
+	}
+}
+void NodeList::swap(Node * node1, Node * node2)
+{
+	if (head && node1 && node2 && node1!=node2) {
+		Node *node1_prev = node1->prev;
+		Node *node1_next = node1->next;
+		Node *node2_prev = node2->prev;
+		Node *node2_next = node2->next;
+		
+		if (node1_next != node2 && node2_next != node1)
+		{
+			node1->prev = node2_prev;
+			node1->next = node2_next;
+			node2->prev = node1_prev;
+			node2->next = node1_next;
+
+			if (node1_next)
+				node1_next->prev = node2;
+			if (node1_prev)
+				node1_prev->next = node2;
+			if (node2_next)
+				node2_next->prev = node1;
+			if (node2_prev)
+				node2_prev->next = node1;
+		}
+		else if(node1_next==node2)
+		{
+			node1->prev = node2;
+			node1->next = node2_next;
+			node2->prev = node1_prev;
+			node2->next = node1;
+
+			
+			if (node1_prev)
+				node1_prev->next = node2;
+			if (node2_next)
+				node2_next->prev = node1;
+		}
+		else if(node2_next==node1)
+		{
+			node1->prev = node2_prev;
+			node1->next = node2;
+			node2->prev = node1;
+			node2->next = node1_next;
+
+			if (node1_next)
+				node1_next->prev = node2;
+			if (node2_prev)
+				node2_prev->next = node1;
+		}
+				
+		
+
+		if (this->head == node1)
+			this->head = node2;
+		else if (this->head == node2)
+			this->head = node1;
+		if (this->tail == node1)
+			this->tail = node2;
+		else if (this->tail == node2)
+			this->tail = node1;
+
 	}
 }
 void NodeList::changeAt(int index, int value)
@@ -323,4 +386,15 @@ NodeList* NodeList::splitList()
 	this->tail->next = NULL;
 	this->length = x;
 	return lista;
+}
+
+Node * NodeList::operator[](std::size_t el)
+{
+	if (el < length) {
+		Node *tmp;
+		for (tmp = head; el > 0; tmp = tmp->next, el--);
+		return tmp;
+	}
+	else
+		return nullptr;
 }
