@@ -28,6 +28,7 @@ public:
 	void changeAt(int index, int value);//podmiana wartosci na indexie 
 	int* readAt(int index);//czytanie z indexu
 	NodeList* splitList();
+	Node* operator[](std::size_t el);
 	friend void bubbleSort(NodeList &list);
 	friend void insertSort(NodeList &list);
 	friend void selectionSort(NodeList &list);

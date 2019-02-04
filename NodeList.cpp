@@ -267,7 +267,7 @@ void NodeList::swap(int index1, int index2)
 }
 void NodeList::swap(Node * node1, Node * node2)
 {
-	if (head && node1 && node2) {
+	if (head && node1 && node2 && node1!=node2) {
 		Node *node1_prev = node1->prev;
 		Node *node1_next = node1->next;
 		Node *node2_prev = node2->prev;
@@ -386,4 +386,15 @@ NodeList* NodeList::splitList()
 	this->tail->next = NULL;
 	this->length = x;
 	return lista;
+}
+
+Node * NodeList::operator[](std::size_t el)
+{
+	if (el < length) {
+		Node *tmp;
+		for (tmp = head; el > 0; tmp = tmp->next, el--);
+		return tmp;
+	}
+	else
+		return nullptr;
 }
